@@ -44,7 +44,9 @@
  * The HW configuration used to test that sketch is: Intel Arduino 101
  * with NXP PN7120 SBC kit.
  *****************************************************************************/
+#include <Arduino.h>
 #include "Nfc.h" //lib id 2888
+#include <HardwareSerial.h>
 
 /**********************************************
  *      NFC controller hardware configuration
@@ -55,7 +57,7 @@
 
 #define PN7120_IRQ          2  // pin 2 configured as input for IRQ
 #define PN7120_RESET        4  // pin 4 configured as input for VEN (reset)
-#define PN7120_I2C_ADDRESS  40 // 0x28
+#define PN7120_I2C_ADDRESS  0x7C // 0x28
 
 /**********************************************
  *          Sketch application class
@@ -251,7 +253,7 @@ void NfcApps::cbDeactivate(uint8_t status, uint16_t id, void *data)
  * _tags: tag API wrapper to drive NCI chipset
  * _app: sketch implementation
  **********************************************/
-
+#define NFC_LOG_LEVEL_INFO 0
 NfcLog _log(NFC_LOG_LEVEL_INFO);
 NfcHw_pn7120 _pn7120(_log, PN7120_IRQ, PN7120_RESET, PN7120_I2C_ADDRESS);
 NfcNci _nci(_log, _pn7120);
@@ -266,16 +268,23 @@ void setup(void)
 
     // init all layers from bottom to top
     // logger, hw, nci, tags, and state machine
-    _log.init(230400);
+    _log.init(115200);
     _pn7120.init();
     _nci.init(&_tags);
     _tags.init(&_app);
     _app.init();
+
+    Serial.print("AAAAAAA\n");
 }
 
 // the loop function runs over and over again forever
 void loop(void)
 {
+    static int a=0;
+    a++;
+    Serial.print(a);
+    Serial.print(" AAAAAAb\n");
+    delay(20);
     // handle sketch events (state machine based)
     _app.handleEvent();
 
