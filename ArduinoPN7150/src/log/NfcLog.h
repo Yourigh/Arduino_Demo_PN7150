@@ -35,8 +35,15 @@ class NfcLog {
         NfcLog(uint8_t level) : _level(level) {;}
         void init(uint32_t baudRate) {Serial.begin(baudRate);}
         
-        void v(const char* str, ...) {/*va_list args; va_start(args, F(str)); print(NFC_LOG_LEVEL_VERBOSE, str, args);*/}
-        void d(const char* str, ...) {/*va_list args; va_start(args, F(str)); print(NFC_LOG_LEVEL_DEBUG, str, args);*/}
+        void v(const char* str, ...) {
+            //va_list args; 
+            //va_start(args, F(str)); 
+            Serial.print(str); 
+            /*print(NFC_LOG_LEVEL_VERBOSE, str, args);*/
+            }
+        void d(const char* str, ...) {
+            Serial.print(str);
+            /*va_list args; va_start(args, str); print(NFC_LOG_LEVEL_DEBUG, str, args);*/}
         void i(const char* str, ...) {/*va_list args; va_start(args, F(str)); print(NFC_LOG_LEVEL_INFO, str, args);*/}
         void e(const char* str, ...) {/*va_list args; va_start(args, F(str)); print(NFC_LOG_LEVEL_ERROR, str, args);*/}
         void bv(const char* str, const uint8_t buf[], uint32_t len) {/*print(NFC_LOG_LEVEL_VERBOSE, str, buf, len);*/}
@@ -46,7 +53,7 @@ class NfcLog {
     private:
         NfcLog() : _level(NFC_LOG_LEVEL_OFF) {;}
         void print(uint8_t level, const char* str, va_list args);
-        void print(uint8_t level, const char* str, const uint8_t buf[], uint32_t len);
+        //void print(uint8_t level, const char* str, const uint8_t buf[], uint32_t len);
 
     private:
         uint8_t _level;

@@ -36,7 +36,7 @@ void NfcLog::print(uint8_t level, const char* str, va_list args)
                 continue;
             }
             if( *str == 's' ) {
-                register char *s = (char *)va_arg( args, int);
+                char *s = (char *)va_arg( args, int);
                 Serial.print(s);
                 continue;
             }
@@ -94,7 +94,7 @@ void NfcLog::print(uint8_t level, const char* str, va_list args)
         Serial.print(*str);
     }
 }
-
+/*
 void NfcLog::print(uint8_t level, const char* str, const uint8_t buf[], uint32_t len)
 {
     if (_level < level || buf == NULL || len == 0) {
@@ -113,3 +113,4 @@ void NfcLog::print(uint8_t level, const char* str, const uint8_t buf[], uint32_t
     }
     Serial.print(F("\n"));
 }
+*/

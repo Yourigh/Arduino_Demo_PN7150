@@ -55,9 +55,9 @@
  * - Connected with I2C + IRQ + RESET
  *********************************************/
 
-#define PN7120_IRQ          2  // pin 2 configured as input for IRQ
-#define PN7120_RESET        4  // pin 4 configured as input for VEN (reset)
-#define PN7120_I2C_ADDRESS  0x7C // 0x28
+#define PN7120_IRQ          8  // pin 2 configured as input for IRQ
+#define PN7120_RESET        7  // pin 4 configured as input for VEN (reset)
+#define PN7120_I2C_ADDRESS  0x28 //0x7C // 0x28
 
 /**********************************************
  *          Sketch application class
@@ -124,7 +124,7 @@ void NfcApps::handleEvent(void)
     uint8_t status = TAGS_STATUS_FAILED;
 
     _log.d("TagDetect: %s state = %s\n", __func__, tagDetectStateToStr[_state]);
-
+    
     switch(_state) {
         case STATE_RESET:
             // reset NFC stack and hw
@@ -253,8 +253,8 @@ void NfcApps::cbDeactivate(uint8_t status, uint16_t id, void *data)
  * _tags: tag API wrapper to drive NCI chipset
  * _app: sketch implementation
  **********************************************/
-#define NFC_LOG_LEVEL_INFO 0
-NfcLog _log(NFC_LOG_LEVEL_INFO);
+
+NfcLog _log(NFC_LOG_LEVEL_OFF);
 NfcHw_pn7120 _pn7120(_log, PN7120_IRQ, PN7120_RESET, PN7120_I2C_ADDRESS);
 NfcNci _nci(_log, _pn7120);
 NfcTags _tags(_log, _nci);
@@ -273,8 +273,14 @@ void setup(void)
     _nci.init(&_tags);
     _tags.init(&_app);
     _app.init();
-
-    Serial.print("AAAAAAA\n");
+//try enable HIGH, no difference
+/*
+    pinMode(7,OUTPUT);
+    digitalWrite(7,HIGH);
+*/
+    pinMode(2,OUTPUT); //THIS MADE IT WORK
+    digitalWrite(2,HIGH);
+    Serial.print("NFC start..\n");
 }
 
 // the loop function runs over and over again forever
@@ -282,9 +288,11 @@ void loop(void)
 {
     static int a=0;
     a++;
-    Serial.print(a);
-    Serial.print(" AAAAAAb\n");
-    delay(20);
+    //if ((a%1000)==0){
+        Serial.print(a);
+        Serial.print(" loop\n");
+        delay(100);
+    //}
     // handle sketch events (state machine based)
     _app.handleEvent();
 
