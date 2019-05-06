@@ -19,3 +19,5 @@ Logging was causing problems, with compiling, so it was commented and replaced w
 Evaluation kit: https://www.nxp.com/products/identification-security/rfid/nfc-hf/nfc-readers/development-kits-for-pn7150-plugn-play-nfc-controller:OM5578
 
 PN7150: https://www.nxp.com/docs/en/data-sheet/PN7150.pdf
+
+Based on project on PN7120 https://github.com/ThomasBuhot/arduino-nfc
