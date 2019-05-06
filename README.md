@@ -3,6 +3,10 @@ Arduino Uno with PN7150 NFC controller.
 
 NFC examples are not made for Arduino board.
 
+# Used IDE
+
+PlatrofmIO IDE was used for development
+
 # Functions
 
 Connect the PN7150 sheld to Arduino Uno. When tag is in proximity, logs are sent to serial link (115200 baudrate). This demo is only for demontration that the PN7150 is detecting any tag. At current state it cannot read/write data to tag.
