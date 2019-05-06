@@ -5,7 +5,7 @@ NFC examples are not made for Arduino board.
 
 # Functions
 
-Connect the PN7150 sheld to Arduino Uno. When tag is in proximity, logs are sent to serial link. This demo is only for demontration that the PN7150 is detecting any tag. At current state it cannot read/write data to tag.
+Connect the PN7150 sheld to Arduino Uno. When tag is in proximity, logs are sent to serial link (115200 baudrate). This demo is only for demontration that the PN7150 is detecting any tag. At current state it cannot read/write data to tag.
 
 # Known Bugs
 
